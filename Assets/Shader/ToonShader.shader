@@ -52,8 +52,6 @@ Shader "Custom/ToonShader"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
-
-
         }
         ENDCG
     }

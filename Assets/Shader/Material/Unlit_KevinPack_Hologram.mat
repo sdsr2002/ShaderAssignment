@@ -27,7 +27,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelPower: 3.84
-    - _MinimumAlpha: 0
+    - _MinimumAlpha: 0.059
     m_Colors:
-    - _Tint: {r: 1, g: 0.38341936, b: 0, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

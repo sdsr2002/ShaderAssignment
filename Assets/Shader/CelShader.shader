@@ -79,7 +79,7 @@ Shader "Unlit/CelShader"
                 
                 col = _Albedo;
                 
-                col *= cosineAngle;// fixed4(cosineAngle,cosineAngle,cosineAngle,1);
+                col.xyz *= cosineAngle;// fixed4(cosineAngle,cosineAngle,cosineAngle,1);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

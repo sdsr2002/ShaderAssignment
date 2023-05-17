@@ -31,6 +31,6 @@ Material:
     - _MinValue: 0.183
     - _Shades: 12.6
     m_Colors:
-    - _Albedo: {r: 1, g: 0.9292665, b: 0, a: 1}
+    - _Albedo: {r: 1, g: 0.92941177, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

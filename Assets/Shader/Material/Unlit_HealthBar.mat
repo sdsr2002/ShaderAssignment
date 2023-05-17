@@ -29,7 +29,7 @@ Material:
     m_Floats:
     - _Enable: 1
     - _Face: 0
-    - _health: 1
+    - _health: 0.823
     - _healthFlashSpeed: 100
     - _healthFlashThreshold: 0.25
     - _lostHealthAlpha: 1
