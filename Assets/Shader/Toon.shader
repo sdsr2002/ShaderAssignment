@@ -42,6 +42,7 @@
                 float3 worldNormal : NORMAL;
 				float2 uv : TEXCOORD0;
                 float3 viewDir : TEXCOORD1;
+                UNITY_FOG_COORDS(3)
                 SHADOW_COORDS(2)
 			};
 
@@ -103,6 +104,5 @@
 			}
 			ENDCG
 		}
-        UsePass "Universal Render Pipeline/Lit"
 	}
 }

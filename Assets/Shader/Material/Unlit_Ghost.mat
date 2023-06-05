@@ -26,7 +26,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 5
+    - _FresnelPower: 1.34
     - _powertest: 1
     m_Colors:
     - _Tint: {r: 1, g: 0, b: 0.058823586, a: 1}

@@ -58,7 +58,7 @@ Shader "Unlit/MaterialOutline"
                 float3 normal : TEXCOORD1;
                 float3 viewDir : TEXCOORD2;
                 float4 vertex_World : TEXCOORD3;
-                UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(4)
             };
 
             float4 _Color;

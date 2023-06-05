@@ -1,19 +1,17 @@
-Shader "KevinPack/Unlit/Hologram"
+Shader "Kevinpack/Unlit/Shield"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Tint ("Tint", Color) = (1,1,1,0)
-        _FresnelPower ("Fresnel Power", float) = 5
-        _MinimumAlpha ("Min Alpha", Range(0,1)) = 0.1
+        _Tint ("Tint", Color) = (1,1,1,1)
+        _FresnelPower ("Fresnel Power", float) = 1
     }
-
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         LOD 100
+
         ZWrite Off
-        Cull Back
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -35,45 +33,57 @@ Shader "KevinPack/Unlit/Hologram"
 
             struct v2f
             {
-                float4 vertex : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float3 normal : TEXCOORD1;
+                float4 vertex : SV_POSITION;
+                UNITY_FOG_COORDS(1)
                 float3 viewDir :TEXCOORD2;
-                UNITY_FOG_COORDS(3)
+                float3 normal : TEXCOORD3;
             };
 
             sampler2D _MainTex;
-            float4 _Tint;
             float4 _MainTex_ST;
-            float _FresnelPower;
-            float _MinimumAlpha;
 
+            float4 _Tint;
+
+            float _FresnelPower;
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.normal = UnityObjectToWorldNormal(v.normal);
-                o.viewDir = normalize(WorldSpaceViewDir(v.vertex));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.uv -= _Time.y;
+                o.viewDir = normalize(WorldSpaceViewDir(v.vertex));
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                // return fixed4(i.normal.xxx,1);
+                float fresnelAmount = saturate(1 - dot(i.normal, i.viewDir));
+                fresnelAmount = pow(fresnelAmount, _FresnelPower);
+                    
+                i.uv.y += sin(_Time.y * 0.1) * 0.5;
                 // sample the texture
-                float frensnelAmount = saturate(1 -dot(i.normal, i.viewDir));
-                float2 uvs = i.uv * 0.4;
-                //uvs.y += _Time.x * 1;
-                fixed4 col = tex2D(_MainTex, uvs) * 2;
+                fixed4 col = tex2D(_MainTex, i.uv);
                 // apply fog
+
+                col.w = (col.x + col.y + col.z) / 3;
+                //return fixed4(lerp(half4(1, 1, 1), half4(0, 0, 0)), lerp(half4(1, 1, 1), half4(0, 0, 0)), lerp(half4(1, 1, 1), half4(0, 0, 0)), 1);
+                
+
+                col.xyz *= _Tint.xyz;
+                if (col.w < 0.9) {
+                    col.w = 0.4;
+                    col.xyz = _Tint.xyz;
+                }
+
+                //return float4(fresnelAmount.xxx,0.5);
+                //return fresnelAmount.xxx;
+
+                col.xyz += _Tint * fresnelAmount;
+
+
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                frensnelAmount = pow(frensnelAmount, _FresnelPower);
-                col.w *= frensnelAmount;
-                col.w = clamp(col.w,_MinimumAlpha,1);
-                col += _Tint * frensnelAmount;
                 return col;
             }
             ENDCG

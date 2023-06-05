@@ -39,7 +39,7 @@ Shader "KevinPack/Unlit/Fire"
                 float2 uv : TEXCOORD0;
                 float2 uvMask : TEXCOORD1;
                 float2 uvPerlinMask : TEXCOORD2;
-                UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(3)
                 float4 vertex : SV_POSITION;
             };
 

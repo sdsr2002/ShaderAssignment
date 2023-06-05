@@ -37,7 +37,7 @@ Shader "KevinPack/Unlit/Ghost"
                 float2 uv : TEXCOORD0;
                 float3 normal : TEXCOORD1;
                 float3 viewDir :TEXCOORD2;
-                UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(3)
             };
 
             sampler2D _MainTex;
