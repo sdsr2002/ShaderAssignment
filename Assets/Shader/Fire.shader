@@ -3,11 +3,11 @@ Shader "KevinPack/Unlit/Fire"
     Properties
     {
         _Tint ("Color Tint", Color) = (1,1,1,1)
-        _AlphaMinMax ("Alpha [Min, Max]", vector) = (1,1,0,0)
+        _AlphaMinMax ("Alpha [Min, Max]", vector) = (1,1,0.8,0)
         _MainTex ("Texture", 2D) = "white" {}
         _MaskTex ("Mask Texture", 2D) = "white" {}
         _PerlinTex ("Perlin Mask Texture", 2D) = "white" {}
-        _powertest ("P", float) = 5
+        _Intensity ("Color Intensity", float) = 5
     }
 
     SubShader
@@ -56,7 +56,7 @@ Shader "KevinPack/Unlit/Fire"
             sampler2D _PerlinTex;
             float4 _PerlinTex_ST;
 
-            float _powertest;
+            float _Intensity;
 
             v2f vert (appdata v)
             {
@@ -90,7 +90,7 @@ Shader "KevinPack/Unlit/Fire"
                 
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 col.w = saturate(mask * maskPerlin);
-                col.xyz *= _powertest;
+                col.xyz *= _Intensity;
                 return col * _Tint;
             }
             ENDCG

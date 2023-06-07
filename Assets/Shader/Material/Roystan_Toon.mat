@@ -26,12 +26,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Glossiness: 39.04
-    - _RimAmount: 0.499
-    - _RimThreshold: 0.143
+    - _Glossiness: 32
+    - _RimAmount: 0.124
+    - _RimThreshold: 0.091
     m_Colors:
     - _AmbientColor: {r: 0.39999998, g: 0.39999998, b: 0.39999998, a: 1}
-    - _Color: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 0}
-    - _RimColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+    - _Color: {r: 0.5, g: 0.65, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   m_BuildTextureStacks: []

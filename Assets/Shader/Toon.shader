@@ -73,7 +73,7 @@
 
 			float4 frag (v2f i) : SV_Target
 			{
-                return fixed4(1,1,1,1);
+                //return fixed4(1,1,1,1);
                 float3 normal = normalize(i.worldNormal);
                 float NdotL = dot(_WorldSpaceLightPos0, normal);
 

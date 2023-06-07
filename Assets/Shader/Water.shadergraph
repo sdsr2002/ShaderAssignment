@@ -37,9 +37,6 @@
             "m_Id": "feb1ea30fa124372970b2ab7c4d0c0c0"
         },
         {
-            "m_Id": "e000063a2f524f11b3840845b62c73fe"
-        },
-        {
             "m_Id": "d280777205ea4d04b78c5215ad26c344"
         },
         {
@@ -6607,33 +6604,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "e000063a2f524f11b3840845b62c73fe",
-    "m_Guid": {
-        "m_GuidSerialized": "bed3cc51-083d-483e-9e41-c2135d2d3017"
-    },
-    "m_Name": "offsetTest",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "offsetTest",
-    "m_DefaultReferenceName": "_offsetTest",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 5.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "e1271787d9be45d0a94c8015ca3118d9",
@@ -7254,9 +7224,6 @@
         },
         {
             "m_Id": "feb1ea30fa124372970b2ab7c4d0c0c0"
-        },
-        {
-            "m_Id": "e000063a2f524f11b3840845b62c73fe"
         },
         {
             "m_Id": "d280777205ea4d04b78c5215ad26c344"
