@@ -62,21 +62,21 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Distance: 1.47
+    - _Distance: 3.24
     - _DistanceFrac: 0.5
     - _FloamAmount: 10
     - _FoamCutOff: 100
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RefractArea: 0.5
-    - _RefractionStrength: 0.07
+    - _RefractionStrength: 0.5
     - _Wave_Intesity: 1
     - _Wave_Speed: 0.35
     - _offsetTest: -0.29
     m_Colors:
-    - _DeepWater: {r: 0.08082277, g: 0, b: 1, a: 0.72156864}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DeepWater: {r: 0.08082264, g: 0, b: 1, a: 0.70980394}
+    - _FoamColor: {r: 0.7028302, g: 0.9487237, b: 1, a: 1}
     - _FoamScale: {r: 100, g: 100, b: 0, a: 0}
     - _FoamSpeed: {r: 1, g: 1, b: 0, a: 0}
-    - _ShallowWater: {r: 0, g: 0.6509804, b: 1, a: 1}
+    - _ShallowWater: {r: 0, g: 0.6509804, b: 1, a: 0}
   m_BuildTextureStacks: []

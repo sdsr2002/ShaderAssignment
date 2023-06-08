@@ -5,8 +5,8 @@ Shader "KevinPack/Unlit/Shield"
         _MainTex ("Texture", 2D) = "white" {}
         _NoiseMask ("Noise Mask", 2D) = "white" {}
         _NoiseScale ("Mask Scale", float) = 1
-        _NoiseSpeed ("Mask Speed", float) = 0.1
-        _NoiseSpeed2 ("Mask Speed", float) = 0.1
+        _NoiseSpeed ("Mask Speed Y", float) = 0.1
+        _NoiseSpeed2 ("Mask Speed X", float) = 0.1
         _Tint ("Tint", Color) = (1,1,1,1)
         _FresnelPower ("Fresnel Power", float) = 1
     }
@@ -97,12 +97,13 @@ Shader "KevinPack/Unlit/Shield"
                     col.xyz = _Tint.xyz;
                 }
                 col.w *= maskCol.w;
+
                 //return float4(fresnelAmount.xxx,0.5);
                 //return fresnelAmount.xxx;
 
-                col.xyz += _Tint * fresnelAmount;
+                col.xyz *= _Tint;
 
-                col.w += saturate(fresnelAmount);
+                col.w += 0.5 + saturate(fresnelAmount);
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
                 return fixed4(col.xyz, mask);

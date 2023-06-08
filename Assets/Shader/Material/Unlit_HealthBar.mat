@@ -29,11 +29,11 @@ Material:
     m_Floats:
     - _Enable: 1
     - _Face: 0
-    - _health: 0.823
+    - _health: 0.338
     - _healthFlashSpeed: 100
     - _healthFlashThreshold: 0.25
     - _lostHealthAlpha: 1
-    - _outlineThickness: 0.25
+    - _outlineThickness: 0.068
     - _outlinethresshold: 0.5
     m_Colors: []
   m_BuildTextureStacks: []

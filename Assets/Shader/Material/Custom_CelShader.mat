@@ -28,8 +28,8 @@ Material:
     m_Floats:
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _MinValue: 0.13
-    - _Shades: 7.08
+    - _MinValue: 0
+    - _Shades: 11.2
     m_Colors:
     - _Albedo: {r: 1, g: 0.24049592, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

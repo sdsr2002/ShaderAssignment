@@ -5,6 +5,7 @@ Shader "KevinPack/Unlit/Ghost"
         _MainTex ("Texture", 2D) = "white" {}
         _Tint ("Tint", Color) = (1,1,1,0)
         _FresnelPower ("Fresnel Power", float) = 5
+        _Intensity ("Intensity", float) = 1
     }
     SubShader
     {
@@ -44,6 +45,7 @@ Shader "KevinPack/Unlit/Ghost"
             float4 _Tint;
             float4 _MainTex_ST;
             float _FresnelPower;
+            float _Intensity;
 
             v2f vert (appdata v)
             {
@@ -69,7 +71,7 @@ Shader "KevinPack/Unlit/Ghost"
                 
                 col.w *= clamp(frensnelAmount,0.05,1);
 
-                col += _Tint * frensnelAmount;
+                col += _Tint * _Intensity * frensnelAmount;
                 return col;
             }
             ENDCG

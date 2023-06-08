@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unlit_Fire
+  m_Name: test
   m_Shader: {fileID: 4800000, guid: 4999b9beca4da4e47ad306637c338e92, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,11 +21,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e1490b8f9f0bb92449d854a1709aedd1, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae69ad70f1ba0f94ca216359ceb1739d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 3bbe45f981651d447b2dd9b892b90f0a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9553572e52e699642a0c56a2902583be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PerlinTex:
@@ -34,10 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Intensity: 5
+    - _Intensity: 3.11
     - _powerIntensity: 5
     - _powertest: 39.39
     m_Colors:
-    - _AlphaMinMax: {r: 0.3, g: 0.7, b: 0.5, a: 0.5}
-    - _Tint: {r: 1, g: 0.65827984, b: 0, a: 1}
+    - _AlphaMinMax: {r: 0.3, g: 0.5, b: 0, a: 0.15}
+    - _Tint: {r: 1, g: 0.6283695, b: 0.19339621, a: 1}
   m_BuildTextureStacks: []
