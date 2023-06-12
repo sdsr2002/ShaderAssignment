@@ -26,10 +26,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 0.84
-    - _MinimumAlpha: 0.088
+    - _FresnelPower: 1.47
+    - _Intensity: 1
+    - _MinimumAlpha: 0
     - _Scale: 0.39
     - _Speed: 0.07
     m_Colors:
-    - _Tint: {r: 1, g: 0.40518346, b: 0.031372547, a: 0}
+    - _Tint: {r: 1, g: 0.38461536, b: 0, a: 0}
   m_BuildTextureStacks: []

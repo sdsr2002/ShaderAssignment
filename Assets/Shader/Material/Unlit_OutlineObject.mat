@@ -7,30 +7,22 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_CelShader
-  m_Shader: {fileID: 4800000, guid: 1645e82f288c7b34ea2456f57b4f94f3, type: 3}
+  m_Name: Unlit_OutlineObject
+  m_Shader: {fileID: 4800000, guid: 4b7827a5f94ebdd4ea9230db9952a567, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Glossiness: 0.5
-    - _Metallic: 0
-    - _MinValue: 0.074
-    - _Shades: 10.17
+    - _Thickness: 0
     m_Colors:
-    - _Albedo: {r: 1, g: 0.24049592, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

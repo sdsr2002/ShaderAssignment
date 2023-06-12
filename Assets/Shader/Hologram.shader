@@ -5,7 +5,12 @@ Shader "KevinPack/Unlit/Hologram"
         _MainTex ("Texture", 2D) = "white" {}
         _Scale ("Texture Scale", float) = 1
         _Speed ("Texture Speed", float) = 1
+        [Header(Color)]
+
         _Tint ("Tint", Color) = (1,1,1,0)
+        _Intensity ("Intensity", float) = 1
+        [Header(Fresnel)]
+
         _FresnelPower ("Fresnel Power", float) = 5
         _MinimumAlpha ("Min Alpha", Range(0,1)) = 0.1
     }
@@ -49,6 +54,7 @@ Shader "KevinPack/Unlit/Hologram"
 
             float _Scale;
             float _Speed;
+            float _Intensity;
 
             float4 _Tint;
             float _FresnelPower;
@@ -80,7 +86,9 @@ Shader "KevinPack/Unlit/Hologram"
                 frensnelAmount = pow(frensnelAmount, _FresnelPower);
                 col.w *= frensnelAmount;
                 col.w = clamp(col.w,_MinimumAlpha,1);
-                col += _Tint * frensnelAmount;
+                col.xyz += frensnelAmount.xxx;
+                col += _Tint * _Intensity;
+                col.xyzw = saturate(col.xyzw);
                 return col;
             }
             ENDCG

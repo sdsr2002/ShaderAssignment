@@ -17,9 +17,13 @@
 		{
             Tags
             {
+                "RenderType"="Opaque"
                 "LightMode" = "ForwardBase"
                 "PassFlags" = "OnlyDirectional"
             }
+            LOD 100
+            Blend One One
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
