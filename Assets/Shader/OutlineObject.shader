@@ -2,12 +2,13 @@ Shader "KevinPack/Unlit/OutlineObject"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-        _Thickness ("Thickness", float) = 0
+        _Color("Color", Color) = (1,1,1,1)
+        _Thickness("Thickness", float) = 0
+        _OutValue("Outline Value", range(0,1)) = 0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque"}
+        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
         LOD 100
         Cull front
         ZWrite Off
@@ -24,7 +25,21 @@ Shader "KevinPack/Unlit/OutlineObject"
 
             float4 _Color;
             float _Thickness;
+            float _OutValue;
+            float4 _Offset;
             
+            float4 outline(float4 vetexPos, float outvalue) 
+            {
+                float4x4 scale = float4x4
+                    (
+                        1 + outvalue, 0, 0, 0,
+                        0, 1 + outvalue, 0, 0,
+                        0, 0, 1 + outvalue, 0,
+                        0, 0, 0, 1 + outvalue
+                        );
+
+                return mul(scale, vetexPos);
+            }
 
             struct appdata
             {
@@ -43,11 +58,16 @@ Shader "KevinPack/Unlit/OutlineObject"
             v2f vert (appdata v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+
+                float4 vertexPos = outline(v.normal.xyzw * _OutValue, _OutValue);
+                o.vertex = UnityObjectToClipPos(vertexPos + v.vertex);
                 o.uv = v.uv;
+                /*
                 float3 forward = mul((float3x3)unity_CameraToWorld, float3(0,0,1));
                 o.vertex *= normalize(dot(v.normal, forward)) *_Thickness;
                 UNITY_TRANSFER_FOG(o,o.vertex);
+                */
+
                 return o;
             }
 
@@ -58,7 +78,7 @@ Shader "KevinPack/Unlit/OutlineObject"
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 //return float4(normalize(i.worldPos.xyz),1);
-                return fixed4(0,0,0,1); //col;
+                return col; //col;
             }
             ENDCG
         }

@@ -18,6 +18,7 @@
             Tags
             {
                 "RenderType"="Opaque"
+                "Queue" = "transparent"
                 "LightMode" = "ForwardBase"
                 "PassFlags" = "OnlyDirectional"
             }
