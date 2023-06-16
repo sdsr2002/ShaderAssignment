@@ -27,8 +27,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Glossiness: 32
-    - _RimAmount: 0.124
-    - _RimThreshold: 0.091
+    - _RimAmount: 0.326
+    - _RimThreshold: 0.055
     m_Colors:
     - _AmbientColor: {r: 0.39999998, g: 0.39999998, b: 0.39999998, a: 1}
     - _Color: {r: 0.5, g: 0.65, b: 1, a: 1}

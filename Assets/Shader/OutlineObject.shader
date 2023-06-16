@@ -1,4 +1,4 @@
-Shader "KevinPack/Unlit/OutlineObject"
+Shader "KevinPack/Unlit/OutlineHighPoly"
 {
     Properties
     {
