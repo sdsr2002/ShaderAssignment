@@ -12,10 +12,9 @@ Shader "KevinPack/Unlit/Shield"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent"  "CanUseDepthTexture" = "True"}
         LOD 100
 
-        ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass

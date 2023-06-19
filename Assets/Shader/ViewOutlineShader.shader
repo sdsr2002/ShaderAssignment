@@ -1,63 +1,72 @@
 Shader "KevinPack/ViewOutlineShader"
 {
-    Properties
-    {
-        _MainTex("Texture", 2D) = "white" {}
-        _Scale("Outline Scale", Range(0,100)) = 1
-        _DepthThreshold("Depth Threshold", float) = 25
-
-    }
 
     SubShader
     {
-        Tags { "RenderType" = "Transparent" "Queue"="Transparent" }
-        LOD 100
+        Cull Off ZWrite Off ZTest Always
 
         Pass
         {
-            CGPROGRAM
-            #pragma vertex vert
+            HLSLPROGRAM
+            #pragma vertex VertDefault
             #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
 
-            #include "UnityCG.cginc"
+            #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
 
-            sampler2D _MainTex;
+            TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
+            // _CameraNormalsTexture contains the view space normals transformed
+            // to be in the 0...1 range.
+            TEXTURE2D_SAMPLER2D(_CameraNormalsTexture, sampler_CameraNormalsTexture);
+            TEXTURE2D_SAMPLER2D(_CameraDepthTexture, sampler_CameraDepthTexture);
+
+            float4 _Color;
+
             float4 _MainTex_TexelSize;
-
-            sampler2D _CameraDepthTexture;
-            sampler2D sampler_CameraDepthTexture;
 
             float _Scale;
             float _DepthThreshold;
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
+            float _NormalThreshold;
+            float _DepthNormalThreshold;
+            float _DepthNormalThresholdScale;
 
-            struct v2f
+            float4x4 _ClipToView;
+            struct Varyings
             {
-                float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float2 texcoord : TEXCOORD1;
+                float2 texcoord : TEXCOORD0;
+                float2 texcoordStereo : TEXCOORD1;
+                float3 viewSpaceDir : TEXCOORD2;
+                #if STEREO_INSTANCING_ENABLED
+                    uint stereoTargetEyeIndex : SV_RenderTargetArrayIndex;
+                #endif
             };
 
-            v2f vert(appdata v)
+            Varyings Vert(AttributesDefault v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                o.texcoord = float2(0, 0);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                Varyings o;
+                o.vertex = float4(v.vertex.xy, 0.0, 1.0);
+                o.viewSpaceDir = mul(_ClipToView, o.vertex).xyz;
+                o.texcoord = TransformTriangleVertexToUV(v.vertex.xy);
+
+                #if UNITY_UV_STARTS_AT_TOP
+                    o.texcoord = o.texcoord * float2(1.0, -1.0) + float2(0.0, 1.0);
+                #endif
+
+                o.texcoordStereo = TransformStereoScreenSpaceTex(o.texcoord, 1.0);
+
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Targe
+            half4 frag(Varyings i) : SV_Target
             {
+
+                float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
+
+                ///
+                /// Pixel Choose
+                /// 
+
                 float halfScaleFloor = floor(_Scale * 0.5);
                 float halfScaleCeil = ceil(_Scale * 0.5);
 
@@ -71,15 +80,69 @@ Shader "KevinPack/ViewOutlineShader"
                 float depth2 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, bottomRightUV).r;
                 float depth3 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, sampler_CameraDepthTexture, topLeftUV).r;
 
-                return depth0;
+                ///
+                /// The Roberts cross Method
+                /// 
+                
+                float depthFiniteDifference0 = depth1 - depth0;
+                float depthFiniteDifference1 = depth3 - depth2;
 
-                // sample the texture
-                float4 col = float4(1,1,1,1);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
+
+                ///
+                /// Normals
+                ///
+                
+                /*
+                
+                float3 normal0 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_CameraNormalsTexture, bottomLeftUV).rgb;
+                float3 normal1 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_CameraNormalsTexture, topRightUV).rgb;
+                float3 normal2 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_CameraNormalsTexture, bottomRightUV).rgb;
+                float3 normal3 = SAMPLE_TEXTURE2D(_CameraNormalsTexture, sampler_CameraNormalsTexture, topLeftUV).rgb;
+
+                float3 normalFiniteDifference0 = normal1 - normal0;
+                float3 normalFiniteDifference1 = normal3 - normal2;
+
+                ///
+                /// Fresnel
+                ///
+
+                float3 viewNormal = normal0 * 2 - 1;
+                float NdotV = 1 - dot(viewNormal, -i.viewSpaceDir);
+
+                ///
+                ///
+                /// 
+                
+                float normalThreshold01 = saturate((NdotV - _DepthNormalThreshold) / (1 - _DepthNormalThreshold));
+                float normalThreshold = normalThreshold01 * _DepthNormalThresholdScale + 1;
+
+                float depthThreshold = _DepthThreshold * depth0 * normalThreshold;
+                edgeDepth = edgeDepth > depthThreshold ? 1 : 0;
+
+                ///
+                ///
+                /// 
+                
+                float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
+                edgeNormal = edgeNormal > _NormalThreshold ? 1 : 0;
+
+                float edge = max(edgeDepth, edgeNormal);
+                
+                */
+
+                ///
+                ///
+                /// 
+                
+                float edge = edgeDepth; // temporary placeholder
+
+                float4 edgeColor = float4(_Color.rgb, _Color.a * edge);
+
+                return lerp(color, edgeColor, edge);
+
             }
-        ENDCG
+        ENDHLSL
         }
     }
 }

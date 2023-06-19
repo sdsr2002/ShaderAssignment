@@ -9,9 +9,8 @@ Shader "KevinPack/Unlit/Ghost"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent"}
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" "CanUseDepthTexture" = "True"}
         LOD 100
-        ZWrite Off
         Cull Back
         Blend SrcAlpha OneMinusSrcAlpha
 
