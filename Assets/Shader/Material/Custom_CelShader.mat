@@ -28,9 +28,9 @@ Material:
     m_Floats:
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _MinValue: 0.074
-    - _Shades: 10.17
+    - _MinValue: 0.383
+    - _Shades: 2.17
     m_Colors:
-    - _Albedo: {r: 1, g: 0.24049592, b: 0, a: 1}
+    - _Albedo: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

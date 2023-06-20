@@ -26,9 +26,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 1.37
-    - _Intensity: 0.02
+    - _FresnelPower: 4.04
+    - _Intensity: 9.77
     - _powertest: 1
     m_Colors:
-    - _Tint: {r: 0, g: 1, b: 0.053772688, a: 1}
+    - _Tint: {r: 1, g: 0.12481479, b: 0, a: 1}
   m_BuildTextureStacks: []

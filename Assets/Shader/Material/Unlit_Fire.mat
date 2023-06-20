@@ -34,10 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Intensity: 5
+    - _Intensity: 2.16
     - _powerIntensity: 5
     - _powertest: 39.39
     m_Colors:
-    - _AlphaMinMax: {r: 0.3, g: 0.7, b: 0.5, a: 0.5}
+    - _AlphaMinMax: {r: 0.47, g: 0.7, b: 0.5, a: 0.5}
     - _Tint: {r: 1, g: 0.65827984, b: 0, a: 1}
   m_BuildTextureStacks: []

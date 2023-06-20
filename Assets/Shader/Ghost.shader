@@ -37,7 +37,8 @@ Shader "KevinPack/Unlit/Ghost"
                 float2 uv : TEXCOORD0;
                 float3 normal : TEXCOORD1;
                 float3 viewDir :TEXCOORD2;
-                UNITY_FOG_COORDS(3)
+                float4 screenSpace : TEXCOORD3;
+                UNITY_FOG_COORDS(4)
             };
 
             sampler2D _MainTex;
@@ -52,6 +53,7 @@ Shader "KevinPack/Unlit/Ghost"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 o.viewDir = normalize(WorldSpaceViewDir(v.vertex));
+                o.screenSpace = float4(0,0,0,0);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -69,8 +71,8 @@ Shader "KevinPack/Unlit/Ghost"
                 frensnelAmount = pow(frensnelAmount, _FresnelPower);
                 
                 col.w *= clamp(frensnelAmount,0.05,1);
-
-                col += _Tint * _Intensity * frensnelAmount;
+                col.w = frensnelAmount;
+                col.xyz += _Tint * _Intensity;
                 return col;
             }
             ENDCG

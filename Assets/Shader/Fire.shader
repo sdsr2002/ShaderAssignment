@@ -15,6 +15,7 @@ Shader "KevinPack/Unlit/Fire"
         Tags { "RenderType"="Transparent" "Queue" = "Transparent" "CanUseDepthTexture" = "True"}
         LOD 100
         Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
         Cull Off
 
         Pass
